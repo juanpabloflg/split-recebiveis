@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Sistema de Gestão Financeira Pessoal com Motor de Regras Orçamentárias
 
 ## Descrição do Projeto
@@ -34,3 +35,7 @@ gestao-financeira/
 │   │   └── ui/           # Interface de interação via linha de comando (CLI)
 │   └── test/             # Suíte de testes unitários (JUnit) e especificações BDD (Cucumber)
 └── pom.xml               # Especificação de dependências e plugins Maven
+=======
+# sistema-gestao-financeira
+Sistema de gestão financeira pessoal desenvolvido para a disciplina de Gestão e Qualidade de Software.
+>>>>>>> ddec4564ebba0207f9cae4d523fb0ccbe3f403fd
