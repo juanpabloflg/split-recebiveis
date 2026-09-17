@@ -1,0 +1,17 @@
+# Maven - ignorar pasta de compilação e artefatos gerados
+target/
+*.jar
+*.war
+*.ear
+
+# Arquivos de IDE (VS Code, Eclipse, IntelliJ)
+.vscode/
+.settings/
+.classpath
+.project
+*.iml
+.idea/
+
+# Sistema Operacional
+.DS_Store
+Thumbs.db
