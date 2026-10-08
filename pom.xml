@@ -1,24 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>br.com.financas</groupId>
-    <artifactId>gestao-financeira</artifactId>
+    <groupId>br.com.splitrecebiveis</groupId>
+    <artifactId>split-recebiveis</artifactId>
     <version>1.0.0-SNAPSHOT</version>
-    <name>Gestao Financeira Pessoal com Assistente</name>
+
+    <name>Sistema de Gestão de Recebíveis com Split</name>
+    <description>
+        Sistema de gestão de recebíveis utilizando Split de pagamentos,
+        desenvolvido para a disciplina integradora A3.
+    </description>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
         <junit.jupiter.version>5.10.2</junit.jupiter.version>
         <cucumber.version>7.15.0</cucumber.version>
+        <junit.platform.version>1.10.2</junit.platform.version>
     </properties>
 
     <dependencies>
-        <!-- JUnit 5 (Testes Unitários) -->
+
+        <!-- JUnit 5 - Testes Unitários -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
@@ -26,47 +36,55 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- Cucumber BDD -->
+        <!-- Cucumber - Testes BDD -->
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-java</artifactId>
             <version>${cucumber.version}</version>
             <scope>test</scope>
         </dependency>
+
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-junit-platform-engine</artifactId>
             <version>${cucumber.version}</version>
             <scope>test</scope>
         </dependency>
+
+        <!-- JUnit Platform - Execução dos testes Cucumber -->
         <dependency>
             <groupId>org.junit.platform</groupId>
             <artifactId>junit-platform-suite</artifactId>
-            <version>1.10.2</version>
+            <version>${junit.platform.version}</version>
             <scope>test</scope>
         </dependency>
+
     </dependencies>
 
     <build>
         <plugins>
-            <!-- Plugin do Maven para rodar os testes em `mvn test` -->
+
+            <!-- Plugin Maven para execução dos testes -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.2.5</version>
             </plugin>
 
-            <!-- Plugin JaCoCo para verificar a cobertura de testes (meta >= 80%) -->
+            <!-- JaCoCo - Cobertura de testes -->
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.8.11</version>
+
                 <executions>
+
                     <execution>
                         <goals>
                             <goal>prepare-agent</goal>
                         </goals>
                     </execution>
+
                     <execution>
                         <id>report</id>
                         <phase>test</phase>
@@ -74,8 +92,11 @@
                             <goal>report</goal>
                         </goals>
                     </execution>
+
                 </executions>
             </plugin>
+
         </plugins>
     </build>
+
 </project>

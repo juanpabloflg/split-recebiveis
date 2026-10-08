@@ -1,4 +1,4 @@
-package br.com.financas;
+package br.com.splitrecebiveis;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
