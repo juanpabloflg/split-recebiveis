@@ -1,3 +1,4 @@
+
 # Sistema de Gestão de Recebíveis com Split de Pagamentos
 
 ## Descrição do Projeto
@@ -28,8 +29,9 @@ O sistema busca representar o processo de divisão de recebíveis antes da liqui
 - **Métrica de Cobertura de Código:** JaCoCo
 - **Controle de Versão:** Git / GitHub
 
-## Organização do Repositório
 
+## Organização do Repositório
+```
 split-recebiveis/
 ├── docs/                 # Documentação do projeto, incluindo requisitos e roteiros de teste
 ├── slides/               # Apresentações de acompanhamento de Sprint e Pitch
@@ -41,3 +43,4 @@ split-recebiveis/
 │   │   └── ui/           # Interface de interação via linha de comando (CLI)
 │   └── test/             # Suíte de testes unitários (JUnit) e especificações BDD (Cucumber)
 └── pom.xml               # Especificação de dependências e plugins Maven
+```
