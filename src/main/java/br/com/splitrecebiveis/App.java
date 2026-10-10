@@ -1,32 +1,21 @@
 package br.com.splitrecebiveis;
  
-import br.com.splitrecebiveis.domain.Beneficiario;
-import br.com.splitrecebiveis.domain.TipoPessoa;
+import br.com.splitrecebiveis.infra.BeneficiarioRepositoryMemoria;
+import br.com.splitrecebiveis.service.BeneficiarioService;
+import br.com.splitrecebiveis.ui.ConsoleUI;
  
 public class App {
  
     public static void main(String[] args) {
  
-        try {
-            // Cria um beneficiário diretamente, sem usar o serviço
-            // ou qualquer funcionalidade da pessoa 2.
-            Beneficiario beneficiario = new Beneficiario(
-                    1,
-                    "João Silva",
-                    TipoPessoa.PF,
-                    "12345678900",
-                    "Banco do Brasil",
-                    "1234",
-                    "56789"
-            );
+        BeneficiarioRepositoryMemoria repository =
+                new BeneficiarioRepositoryMemoria();
  
-            // Exibe os dados do objeto criado.
-            System.out.println("Beneficiário criado com sucesso!");
-            System.out.println(beneficiario);
+        BeneficiarioService service =
+                new BeneficiarioService(repository);
  
-        } catch (IllegalArgumentException e) {
-            // Exibe erros de validação do construtor.
-            System.out.println("Erro: " + e.getMessage());
-        }
+        ConsoleUI consoleUI = new ConsoleUI(service);
+ 
+        consoleUI.iniciar();
     }
 }
