@@ -13,3 +13,10 @@
 * **RNF02 — Organização:** o código deve ser organizado em camadas, separando domínio, serviços, infraestrutura e interface.
 * **RNF03 — Testabilidade:** as regras de negócio devem possuir testes automatizados.
 * **RNF04 — Usabilidade:** o sistema deve apresentar mensagens claras para orientar o usuário e informar erros de entrada.
+
+## 3. Regras de Negócio
+ 
+* **RN01 — Disponibilidade de recebíveis:** se o valor disponível for insuficiente para executar um Split, a operação deverá ser recusada conforme a regra definida para o sistema.
+
+* **RN02 — Antecedência:** o Split deve respeitar o prazo mínimo de agendamento estabelecido para a operação.
+ 
