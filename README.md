@@ -44,3 +44,9 @@ split-recebiveis/
 │   └── test/             # Suíte de testes unitários (JUnit) e especificações BDD (Cucumber)
 └── pom.xml               # Especificação de dependências e plugins Maven
 ```
+
+## Documentação
+
+- [Requisitos funcionais](docs/requisitos/requisitos-funcionais.md)
+- [Requisitos não funcionais](docs/requisitos/requisitos-nao-funcionais.md)
+- [Regras de negócio](docs/requisitos/regras-de-negocio.md)
