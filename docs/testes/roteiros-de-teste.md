@@ -16,12 +16,12 @@
  
 | ID | Funcionalidade | Prioridade | Status |
 | --- | --- | --- | --- |
-| RT-01 | Cadastrar e consultar beneficiário | 🔥 Alta | 🟡 Planejado |
-| RT-02 | Aprovar beneficiário | 🔥 Alta | 🟡 Planejado |
-| RT-03 | Cadastro de beneficiário com nome vazio | ⚠️ Média | 🟡 Planejado |
-| RT-04 | Cadastro de beneficiário com tipo de pessoa inválido | ⚠️ Média | 🟡 Planejado |
-| RT-05 | Cadastrar e consultar recebível | 🔥 Alta | 🟡 Planejado |
-| RT-06 | Cadastro de recebível com valores limite | ⚠️ Média | 🟡 Planejado |
+| RT-01 | Cadastrar e consultar beneficiário | 🔥 Alta | 🟢 Passou |
+| RT-02 | Aprovar beneficiário | 🔥 Alta | 🟢 Passou |
+| RT-03 | Cadastro de beneficiário com nome vazio | ⚠️ Média | 🟢 Passou |
+| RT-04 | Cadastro de beneficiário com tipo de pessoa inválido | ⚠️ Média | 🟢 Passou |
+| RT-05 | Cadastrar e consultar recebível | 🔥 Alta | 🟢 Passou |
+| RT-06 | Cadastro de recebível com valores limite | ⚠️ Média | 🟢 Passou |
  
 ## Cobertura mínima exigida pelo enunciado
  
@@ -47,7 +47,7 @@
 | ✅ Resultado esperado | Mensagem "Beneficiário cadastrado com sucesso!" com ID 1 e Status PENDENTE. A listagem mostra Maria Silva e só volta ao menu quando for digitado `0`. |
 | 🧾 Resultado obtido | Apareceu "Beneficiário cadastrado com sucesso!" com ID 1 e Status PENDENTE. A listagem exibiu Maria Silva e só voltou ao menu após digitar '0'. |
 | 👤 Executado por / data | João, 20/10/2026 |
-| 📌 Status | 🟡 Planejado |
+| 📌 Status | 🟢 Passou |
 | 📎 Evidência | [RT-01.png](evidencias/RT-01.png) |
  
 ## RT-02 — Aprovar beneficiário
@@ -64,7 +64,7 @@
 | ✅ Resultado esperado | (2) "ID inválido. Digite apenas números." (3) "Não foi possível aprovar: Beneficiário não encontrado." (4) "Beneficiário aprovado com sucesso!" com Status APROVADO. (5) A listagem mostra APROVADO. (7) "Nenhum beneficiário pendente de aprovação." |
 | 🧾 Resultado obtido | "Exibiu ID inválido. Digite apenas números." (3) "Exibiu não foi possível aprovar: Beneficiário não encontrado." (4) "Exibiu Beneficiário aprovado!" com Status APROVADO. (5) A listagem mostra APROVADO. (7) "Nenhum beneficiário pendente de aprovação."  |
 | 👤 Executado por / data | João, 20/10/2026 |
-| 📌 Status | 🟡 Planejado |
+| 📌 Status | 🟢 Passou |
 | 📎 Evidência | [RT-02.1.png](evidencias/RT-02.1.png)<br>[RT-02.2.png](evidencias/RT-02.2.png)<br>[RT-02.3.png](evidencias/RT-02.3.png) | 
  
 ## RT-03 — Cadastro de beneficiário com nome vazio
@@ -81,7 +81,7 @@
 | ✅ Resultado esperado | Mensagem "Não foi possível cadastrar: O nome é obrigatório." A listagem mostra "Nenhum beneficiário cadastrado." |
 | 🧾 Resultado obtido | "O terminal exibiu: Não foi possível cadastrar: O nome é obrigatório." A listagem mostra "Nenhum beneficiário cadastrado." |
 | 👤 Executado por / data | João, 20/10/2026 |
-| 📌 Status | 🟡 Planejado |
+| 📌 Status | 🟢 Passou |
 | 📎 Evidência | [RT-03.png](evidencias/RT-03.png) |
  
 ## RT-04 — Cadastro de beneficiário com tipo de pessoa inválido
@@ -98,7 +98,7 @@
 | ✅ Resultado esperado | Mensagem "Tipo de pessoa inválido. Digite PF ou PJ." e retorno ao menu, sem cadastrar. |
 | 🧾 Resultado obtido | "O terminal exibiu: Tipo de pessoa inválido. Digite PF ou PJ." e retorno ao menu, sem cadastrar. |
 | 👤 Executado por / data | João, 20/10/2026 |
-| 📌 Status | 🟡 Planejado |
+| 📌 Status | 🟢 Passou |
 | 📎 Evidência | [RT-04.png](evidencias/RT-04.png) |
  
 ## RT-05 — Cadastrar e consultar recebível
@@ -115,7 +115,7 @@
 | ✅ Resultado esperado | Mensagem "Recebível cadastrado com sucesso!" com ID 1, valor total e valor disponível de R$ 1.500,50 e data 20/10/2026. A listagem mostra o recebível e só volta ao menu com `0`. |
 | 🧾 Resultado obtido | "O terminal exibiu: Recebível cadastrado com sucesso!" com ID 1, valor total e valor disponível de R$ 1.500,50 e data 20/10/2026. A listagem mostra o recebível e só volta ao menu com `0`. |
 | 👤 Executado por / data | Juan, 20/10/2026 |
-| 📌 Status | 🟡 Planejado |
+| 📌 Status | 🟢 Passou |
 | 📎 Evidência | [RT-05.png](evidencias/RT-05.png) |
  
 ## RT-06 — Cadastro de recebível com valores limite
@@ -132,5 +132,5 @@
 | ✅ Resultado esperado | (1) Cadastrado com R$ 0,01. (2) "Não foi possível cadastrar: O valor do recebível deve ser maior que zero." (3) "Não foi possível cadastrar: O valor deve ter no máximo 2 casas decimais." (4) A listagem mostra só o recebível de R$ 0,01. |
 | 🧾 Resultado obtido | (1) Cadastrado com R$ 0,01. (2) "O terminal exibiu: Não foi possível cadastrar: O valor do recebível deve ser maior que zero." (3) "Não foi possível cadastrar: O valor deve ter no máximo 2 casas decimais." (4) A listagem mostra só o recebível de R$ 0,01. |
 | 👤 Executado por / data | Juan, 20/10/2026 |
-| 📌 Status | 🟡 Planejado |
+| 📌 Status | 🟢 Passou |
 | 📎 Evidência | [RT-06.1.png](evidencias/RT-06.1.png)<br>[RT-06.2.png](evidencias/RT-06.2.png) |
