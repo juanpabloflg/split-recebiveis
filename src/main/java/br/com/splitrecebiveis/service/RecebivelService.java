@@ -33,4 +33,13 @@ public class RecebivelService {
     public List<Recebivel> listarTodos() {
         return repository.listarTodos();
     }
+
+    // Soma o valor total dos recebíveis com liquidação na data informada.
+    // Retorna zero quando não há recebíveis nessa data.
+    public BigDecimal totalPorData(LocalDate data) {
+        return repository.listarTodos().stream()
+                .filter(recebivel -> recebivel.getDataLiquidacao().equals(data))
+                .map(Recebivel::getValorTotal)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
 }
