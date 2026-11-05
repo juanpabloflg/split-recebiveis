@@ -51,4 +51,11 @@ public class BeneficiarioService {
         beneficiario.aprovar();
         return beneficiario;
     }
+
+    // Devolve apenas os beneficiários aprovados, que podem receber um Split.
+    public List<Beneficiario> listarAprovados() {
+        return repository.listarTodos().stream()
+                .filter(Beneficiario::isAprovado)
+                .toList();
+    }
 }
