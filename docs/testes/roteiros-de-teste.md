@@ -10,7 +10,7 @@
 | 📎 Evidência | Print, log, vídeo ou link do PR/Issue (arquivos em `evidencias/`) |
  
 > Cada roteiro é executado com o sistema recém-aberto, pois os dados ficam apenas em memória.
-> RT-01 a RT-04 foram executados por João (PR #67). RT-05 e RT-06 por Juan (PR #68). RT-07 a RT-10 por João (PR #).
+> RT-01 a RT-04 foram executados por João (PR #67). RT-05 e RT-06 por Juan (PR #68). RT-07 a RT-10 por João (PR #86). RT-11 por Rafael (PR #87). RT-12 e RT-13 por Juan (PR #).
  
 ## Resumo
  
@@ -27,8 +27,8 @@
 | RT-09 | Split sem antecedência mínima (RN02) | 🔥 Alta | 🟢 Passou |
 | RT-10 | Valor acima do recebível e data sem recebível (RN03) | ⚠️ Média | 🟢 Passou |
 | RT-11 | Listar Splits | ⚠️ Média | 🟢 Passou |
-| RT-12 | Editar Split | 🔥 Alta | 🟡 Planejado |
-| RT-13 | Excluir Split | 🔥 Alta | 🟡 Planejado |
+| RT-12 | Editar Split | 🔥 Alta | 🟢 Passou |
+| RT-13 | Excluir Split | 🔥 Alta | 🟢 Passou |
  
 ## Cobertura mínima exigida pelo enunciado
  
@@ -226,3 +226,37 @@
 | 👤 Executado por / data | Rafael, 05/11/2026 |
 | 📌 Status | 🟢 Passou |
 | 📎 Evidência | [RT-11.1.png](evidencias/RT-11.1.png)<br>[RT-11.2.png](evidencias/RT-11.2.png) |
+
+## RT-12 — Editar Split
+
+| Campo | Detalhe |
+| --- | --- |
+| 🏷️ ID | RT-12 |
+| ⭐ Prioridade | 🔥 Alta |
+| 🧩 Funcionalidade | Editar Split pendente (RF08, RN05, RN03) |
+| 🎯 Objetivo | Verificar a edição de valor com sucesso e a rejeição de valor acima do recebível |
+| 🔐 Pré-condição | Sistema recém-aberto |
+| 🧪 Dados de teste | DT-05; novo valor `500,00` e depois `1500,00` |
+| 🪜 Passos | 1) Executar o RT-07 (criar o Split de R$ 800,00)<br>2) Digitar `8`, ID `1`, novo valor `500,00` e Enter na data<br>3) Digitar `8`, ID `1`, novo valor `1500,00` e Enter na data<br>4) Digitar `7` e conferir o valor |
+| ✅ Resultado esperado | (2) "Split editado com sucesso!" com valor R$ 500,00, data 30/12/2026 e status PENDENTE. (3) "Não foi possível editar o Split: O valor do Split não pode ultrapassar o valor dos recebíveis da data." (4) A listagem mostra o Split com R$ 500,00. |
+| 🧾 Resultado obtido | Conforme o esperado, anexado em evidência |
+| 👤 Executado por / data | Juan, 06/11/2026 |
+| 📌 Status | 🟢 Passou |
+| 📎 Evidência | [RT-12.1.png](evidencias/RT-12.1.png)<br>[RT-12.2.png](evidencias/RT-12.2.png) |
+
+## RT-13 — Excluir Split
+
+| Campo | Detalhe |
+| --- | --- |
+| 🏷️ ID | RT-13 |
+| ⭐ Prioridade | 🔥 Alta |
+| 🧩 Funcionalidade | Excluir Split pendente (RF09, RN06) |
+| 🎯 Objetivo | Verificar a confirmação e a exclusão de um Split pendente |
+| 🔐 Pré-condição | Sistema recém-aberto |
+| 🧪 Dados de teste | DT-05; confirmações `N` e `S` |
+| 🪜 Passos | 1) Executar o RT-07 (criar o Split de R$ 800,00)<br>2) Digitar `9`, ID `1` e `N`<br>3) Digitar `9`, ID `1` e `S`<br>4) Digitar `7` |
+| ✅ Resultado esperado | (2) "Exclusão cancelada." e o Split continua na lista. (3) "Split excluído com sucesso!". (4) "Nenhum Split cadastrado." |
+| 🧾 Resultado obtido | Conforme o esperado, anexado em evidência |
+| 👤 Executado por / data | Juan, 06/11/2026 |
+| 📌 Status | 🟢 Passou |
+| 📎 Evidência | [RT-13.1.png](evidencias/RT-13.1.png)<br>[RT-13.2.png](evidencias/RT-13.2.png) |

@@ -85,4 +85,31 @@ public class SplitService {
     public List<Split> listarTodos() {
         return repository.listarTodos();
     }
+    
+    // Edita o valor e a data de um Split pendente.
+    // Se qualquer regra falhar, o Split continua exatamente como estava.
+    public Split editar(long id, BigDecimal novoValor, LocalDate novaDataRepasse) {
+        Split split = buscarPorId(id);
+
+        if (!split.isPendente()) {
+            throw new IllegalStateException("Apenas Splits pendentes podem ser editados.");
+        }
+
+        validarAgendamento(novoValor, novaDataRepasse);
+
+        split.editar(novoValor, novaDataRepasse);
+
+        return split;
+    }
+
+    // Exclui um Split pendente.
+    public void excluir(long id) {
+        Split split = buscarPorId(id);
+
+        if (!split.isPendente()) {
+            throw new IllegalStateException("Apenas Splits pendentes podem ser excluídos.");
+        }
+
+        repository.remover(split.getId());
+    }
 }
