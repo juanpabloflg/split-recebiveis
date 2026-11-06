@@ -47,6 +47,7 @@ public class ConsoleUI {
             System.out.println("4 - Cadastrar recebível");
             System.out.println("5 - Listar recebíveis");
             System.out.println("6 - Criar Split");
+            System.out.println("7 - Listar Splits");
             System.out.println("0 - Sair");
             System.out.print("Escolha uma opção: ");
  
@@ -59,6 +60,7 @@ public class ConsoleUI {
                 case "4" -> cadastrarRecebivel();
                 case "5" -> listarRecebiveis();
                 case "6" -> criarSplit();
+                case "7" -> listarSplits();
                 case "0" -> System.out.println("Encerrando o sistema...");
                 default -> System.out.println("Opção inválida.");
             }
@@ -294,5 +296,23 @@ public class ConsoleUI {
             System.out.print("\nPara voltar ao menu, digite 0: ");
             entrada = sc.nextLine().trim();
         } while (!entrada.equals("0"));
+    }
+     
+    // Consulta e exibe os Splits armazenados, com o status de cada um.
+    private void listarSplits() {
+ 
+        List<Split> splits = splitService.listarTodos();
+ 
+        System.out.println("\nSplits Cadastrados");
+ 
+        if (splits.isEmpty()) {
+            System.out.println("Nenhum Split cadastrado.");
+        } else {
+            for (Split split : splits) {
+                System.out.println(split);
+            }
+        }
+ 
+        aguardarVoltar();
     }
 }

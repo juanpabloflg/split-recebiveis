@@ -3,7 +3,8 @@ package br.com.splitrecebiveis.service;
 import java.math.BigDecimal;
 import java.time.Clock;
 import java.time.LocalDate;
- 
+import java.util.List;
+
 import br.com.splitrecebiveis.domain.Beneficiario;
 import br.com.splitrecebiveis.domain.Split;
 import br.com.splitrecebiveis.infra.SplitRepositoryMemoria;
@@ -78,5 +79,10 @@ public class SplitService {
         if (valor.compareTo(totalDaData) > 0) {
             throw new IllegalArgumentException("O valor do Split não pode ultrapassar o valor dos recebíveis da data.");
         }
+    }
+
+    // Lista todos os Splits, na ordem em que foram criados.
+    public List<Split> listarTodos() {
+        return repository.listarTodos();
     }
 }
