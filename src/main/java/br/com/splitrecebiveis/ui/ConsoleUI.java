@@ -48,6 +48,8 @@ public class ConsoleUI {
             System.out.println("5 - Listar recebíveis");
             System.out.println("6 - Criar Split");
             System.out.println("7 - Listar Splits");
+            System.out.println("8 - Editar Split");
+            System.out.println("9 - Excluir Split");
             System.out.println("0 - Sair");
             System.out.print("Escolha uma opção: ");
  
@@ -61,6 +63,8 @@ public class ConsoleUI {
                 case "5" -> listarRecebiveis();
                 case "6" -> criarSplit();
                 case "7" -> listarSplits();
+                case "8" -> editarSplit();
+                case "9" -> excluirSplit();
                 case "0" -> System.out.println("Encerrando o sistema...");
                 default -> System.out.println("Opção inválida.");
             }
@@ -314,5 +318,112 @@ public class ConsoleUI {
         }
  
         aguardarVoltar();
+    }
+    
+    // Edita o valor e a data de um Split pendente. Enter mantém o valor atual.
+    private void editarSplit() {
+
+        System.out.println("\nEdição de Split");
+
+        List<Split> splits = splitService.listarTodos();
+
+        if (splits.isEmpty()) {
+            System.out.println("Nenhum Split cadastrado.");
+            aguardarVoltar();
+            return;
+        }
+
+        for (Split split : splits) {
+            System.out.println(split);
+        }
+
+        try {
+            System.out.print("ID do Split a editar (ou 0 para cancelar): ");
+            String entradaId = sc.nextLine().trim();
+
+            if (entradaId.equals("0")) {
+                System.out.println("Edição cancelada.");
+                return;
+            }
+
+            Split atual = splitService.buscarPorId(Long.parseLong(entradaId));
+
+            System.out.print("Novo valor em R$ (Enter para manter): ");
+            String entradaValor = sc.nextLine().trim();
+            BigDecimal novoValor = entradaValor.isEmpty() ? atual.getValor() : lerValor(entradaValor);
+
+            System.out.print("Nova data do repasse, dd/MM/aaaa (Enter para manter): ");
+            String entradaData = sc.nextLine().trim();
+            LocalDate novaData = entradaData.isEmpty()
+                    ? atual.getDataRepasse()
+                    : LocalDate.parse(entradaData, FORMATO_DATA);
+
+            Split editado = splitService.editar(atual.getId(), novoValor, novaData);
+
+            System.out.println("\nSplit editado com sucesso!");
+            System.out.println(editado);
+
+        } catch (NumberFormatException e) {
+            // Precisa vir antes de IllegalArgumentException, pois é uma subclasse dela.
+            System.out.println("ID ou valor inválido. Use apenas números, por exemplo: 800,00.");
+
+        } catch (DateTimeParseException e) {
+            System.out.println("Data inválida. Use o formato dd/MM/aaaa, por exemplo: 25/12/2026.");
+
+        } catch (IllegalArgumentException | IllegalStateException e) {
+            System.out.println("Não foi possível editar o Split: " + e.getMessage());
+        }
+    }
+
+    // Exclui um Split pendente, depois de pedir confirmação.
+    private void excluirSplit() {
+
+        System.out.println("\nExclusão de Split");
+
+        List<Split> splits = splitService.listarTodos();
+
+        if (splits.isEmpty()) {
+            System.out.println("Nenhum Split cadastrado.");
+            aguardarVoltar();
+            return;
+        }
+
+        for (Split split : splits) {
+            System.out.println(split);
+        }
+
+        try {
+            System.out.print("ID do Split a excluir (ou 0 para cancelar): ");
+            String entradaId = sc.nextLine().trim();
+
+            if (entradaId.equals("0")) {
+                System.out.println("Exclusão cancelada.");
+                return;
+            }
+
+            long id = Long.parseLong(entradaId);
+
+            // Confere se o Split existe antes de pedir a confirmação.
+            splitService.buscarPorId(id);
+
+            System.out.print("Confirma a exclusão do Split " + id + "? (S/N): ");
+            String confirmacao = sc.nextLine().trim().toUpperCase();
+
+            if (!confirmacao.equals("S")) {
+                System.out.println("Exclusão cancelada.");
+                return;
+            }
+
+            splitService.excluir(id);
+
+            System.out.println("\nSplit excluído com sucesso!");
+
+        } catch (NumberFormatException e) {
+            // Precisa vir antes de IllegalArgumentException, pois é uma subclasse dela.
+            System.out.println("ID inválido. Digite apenas números.");
+
+        } catch (IllegalArgumentException | IllegalStateException e) {
+            System.out.println("Não foi possível excluir o Split: " + e.getMessage());
+        }
     }
 }
