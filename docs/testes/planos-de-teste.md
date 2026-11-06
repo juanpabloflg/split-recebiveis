@@ -56,7 +56,7 @@
 | --- | --- | --- | --- | --- | --- |
 | ✅ Unitário | Validar regras de domínio e serviços isoladamente | Pacotes `domain` e `service` (Beneficiario, Recebivel, Split e serviços) | JUnit 5 e JaCoCo | Sprint 1: João (beneficiário, #5) e Juan (recebível, #6) | [mvn-test-passo1.txt](evidencias/mvn-test-passo1.txt), [jacoco-teste-passo1.png](evidencias/jacoco-teste-passo1.png), [mvn-test-passo2.txt](evidencias/mvn-test-passo2.txt), [jacoco-test-passo2.png](evidencias/jacoco-test-passo2.png) <br>Sprint 2: [mvn-test-pr1.txt](evidencias/mvn-test-pr1.txt)<br>[jacoco-test-pr1.png](evidencias/jacoco-test-pr1.png)<br>[mvn-test-pr1.1.png](evidencias/mvn-test-pr1.1.png)<br>[mvn-test-pr2.png](evidencias/mvn-test-pr2.png)<br>[mvn-test-pr2.txt](evidencias/mvn-test-pr2.txt)<br>[mvn-test-pr3.txt](evidencias/mvn-test-pr3.txt)<br>[mvn-test-pr3.png](evidencias/mvn-test-pr3.png)<br>[jacoco-pr3.png](evidencias/jacoco-pr3.png) |
 | 🌐 Sistema/End-to-End | Validar os fluxos pela interface de console | Menu da CLI | Execução manual dos roteiros RT-01 a RT-13 | João (RT-01 a RT-04, RT-07 a RT-10) e Juan (RT-05 a RT-06) | [Roteiros de teste](roteiros-de-teste.md): cada ficha traz os prints em `evidencias/` |
-| 🥒 BDD | Validar fluxos essenciais em linguagem de negócio | Sprint 2: criar Split, beneficiário não aprovado, data inválida e valor acima do recebível. Sprint 3: saldo insuficiente e executar Split | Cucumber 7.15.0 (Gherkin em português) | Juan | /////// |
+| 🥒 BDD | Validar fluxos essenciais em linguagem de negócio | Sprint 2: criar Split, beneficiário não aprovado, data inválida e valor acima do recebível. Sprint 3: saldo insuficiente e executar Split | Cucumber 7.15.0 (Gherkin em português) | Milena | [jacoco-pr4.png](evidencias/jacoco-pr4.png) <br> [mvn-test-pr4-bdd.txt](evidencias/mvn-test-pr4-bdd.txt) <br> [bdd-cucumber-pr4.1.png](evidencias/bdd-cucumber-pr4.1.png) <br> [bdd-cucumber-pr4.2.png](evidencias/bdd-cucumber-pr4.2.png) <br> [bdd-cucumber-pr4.3.png](evidencias/bdd-cucumber-pr4.3.png) <br> [mvn-test-pr4-terminalbdd.png](evidencias/mvn-test-pr4-terminalbdd.png) <br> [mvn-test-pr4.1-terminalbdd.png](evidencias/mvn-test-pr4.1-terminalbdd.png)|
 | 🧑‍💻 Usabilidade | Avaliar clareza e facilidade de uso da CLI | Fluxos principais, com 3 participantes | Roteiro de tarefas | A definir na Sprint 3 | `usabilidade.md` (Sprint 3) |
  
 ## Rastreabilidade (Requisitos × Testes)
@@ -70,8 +70,9 @@
 | RF05 | Consultar recebíveis | ⚠️ Média | #39 e #6 (PR #68) | UT-28, UT-32, UT-33, RT-05 | 🟢 Passou |
 | RF06 | Criar Split | 🔥 Alta | #41, #42, #43, #44, #7 (PR #86) | UT-34 a UT-54, RT-07 a RT-10 | 🟢 Passou |
 | RF07 | Listar Splits | ⚠️ Média | #78 (PR #87) | UT-55 a UT-57, RT-11 | 🟢 Passou |
-| RF08 | Editar Split pendente | 🔥 Alta | #45, #7 (PR #__) | UT-58 a UT-60, UT-63 a UT-67, RT-12 | 🟢 Passou |
-| RF09 | Excluir Split pendente | 🔥 Alta | #46, #7 (PR #__) | UT-68 a UT-70, RT-13 | 🟢 Passou |
+| RF08 | Editar Split pendente | 🔥 Alta | #45, #7 (PR #88) | UT-58 a UT-60, UT-63 a UT-67, RT-12 | 🟢 Passou |
+| RF09 | Excluir Split pendente | 🔥 Alta | #46, #7 (PR #88) | UT-68 a UT-70, RT-13 | 🟢 Passou |
+| RF10 a RF14 | Executar, recusar, prioridade, histórico e relatório | 🔥 Alta | Sprint 3 | BDD-04, BDD-05 e testes da Sprint 3 | 🟡 Planejado |
  
 > 🏷️ Convenção: ✅ **UT-XX** (teste unitário), 🥒 **BDD-XX** (cenário BDD), 📝 **RT-XX** (roteiro manual).
  
@@ -163,6 +164,12 @@ Sim |
 | RT-11 | 📝 Manual | Listar Splits | Sistema recém-aberto | Opção 7 | Lista vazia e depois o Split criado | Média | Não |
 | RT-12 | 📝 Manual | Editar Split | Split pendente | R$ 500; depois R$ 1.500 | Editado; depois rejeitado (RN03) | Alta | Não |
 | RT-13 | 📝 Manual | Excluir Split | Split pendente | Confirma N e S | Cancela; depois exclui | Alta | Não |
+| BDD-01 | 🥒 BDD | Criar Split válido | Beneficiário aprovado e recebível na data | Valor e data com antecedência | Split criado como PENDENTE | Alta | Sim |
+| BDD-02 | 🥒 BDD | Beneficiário não aprovado | Beneficiário pendente | Criar Split | Rejeitado (RN01) | Alta | Sim |
+| BDD-03 | 🥒 BDD | Data inválida | Beneficiário aprovado | Data de hoje | Rejeitado (RN02) | Alta | Sim |
+| BDD-06 | 🥒 BDD | Valor acima do recebível | Recebível de R$ 1.000 | R$ 1.500 | Rejeitado (RN03) | Média | Sim |
+| BDD-04 | 🥒 BDD | Saldo insuficiente (Sprint 3) | Split pendente maior que o disponível | Executar Split | Status RECUSADO (RN04) | Alta | Sim |
+| BDD-05 | 🥒 BDD | Executar Split corretamente (Sprint 3) | Split pendente com saldo | Executar Split | Status EXECUTADO | Alta | Sim |
  
 Detalhes dos roteiros em [roteiros-de-teste.md](roteiros-de-teste.md).
  
