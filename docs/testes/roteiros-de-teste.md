@@ -26,7 +26,7 @@
 | RT-08 | Split para beneficiário pendente (RN01) | 🔥 Alta | 🟢 Passou |
 | RT-09 | Split sem antecedência mínima (RN02) | 🔥 Alta | 🟢 Passou |
 | RT-10 | Valor acima do recebível e data sem recebível (RN03) | ⚠️ Média | 🟢 Passou |
-| RT-11 | Listar Splits | ⚠️ Média | 🟡 Planejado |
+| RT-11 | Listar Splits | ⚠️ Média | 🟢 Passou |
 | RT-12 | Editar Split | 🔥 Alta | 🟡 Planejado |
 | RT-13 | Excluir Split | 🔥 Alta | 🟡 Planejado |
  
@@ -209,3 +209,20 @@
 | 👤 Executado por / data | João Pedro, 04/11/2026 |
 | 📌 Status | 🟢 Passou |
 | 📎 Evidência | [RT-10.1.png](evidencias/RT-10.1.png)<br>[RT-10.2.png](evidencias/RT-10.2.png)<br>[RT-10.3.png](evidencias/RT-10.3.png) |
+
+## RT-11 — Listar Splits
+ 
+| Campo | Detalhe |
+| --- | --- |
+| 🏷️ ID | RT-11 |
+| ⭐ Prioridade | ⚠️ Média |
+| 🧩 Funcionalidade | Listar Splits (RF07) |
+| 🎯 Objetivo | Verificar a listagem de Splits vazia e com um Split criado |
+| 🔐 Pré-condição | Sistema recém-aberto |
+| 🧪 Dados de teste | DT-05: Maria Silva aprovada; recebível R$ 1.000,00 em 30/12/2026; Split de R$ 800,00 em 30/12/2026 |
+| 🪜 Passos | 1) Digitar `7` no menu<br>2) Digitar `x` e conferir que a mensagem se repete; depois digitar `0`<br>3) Executar o RT-07 (criar o Split de R$ 800,00)<br>4) Digitar `7`<br>5) Digitar `0` para voltar ao menu |
+| ✅ Resultado esperado | (1) "Nenhum Split cadastrado." e a mensagem "Para voltar ao menu, digite 0:", que se repete com `x`. (4) O Split ID 1 listado com beneficiário Maria Silva (ID 1), valor R$ 800,00, data 30/12/2026 e status PENDENTE, aguardando o `0`. |
+| 🧾 Resultado obtido | Conforme o esperado, anexado em evidência |
+| 👤 Executado por / data | Rafael, 05/11/2026 |
+| 📌 Status | 🟢 Passou |
+| 📎 Evidência | [RT-11.1.png](evidencias/RT-11.1.png)<br>[RT-11.2.png](evidencias/RT-11.2.png) |

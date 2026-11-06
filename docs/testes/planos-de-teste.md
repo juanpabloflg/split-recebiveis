@@ -42,10 +42,10 @@
 | Item | Especificação |
 | --- | --- |
 | 🖥️ SO | Windows (João e Juan) |
-| ☕ Linguagem/Runtime | Java 17 (versão definida no `pom.xml`). Executado com JDK 21 (Juan) e JDK 26 (João) |
+| ☕ Linguagem/Runtime | Java 25 LTS (versão definida no `pom.xml`). Os resultados anteriores foram registrados com JDK 21 (Juan) e JDK 26 (João) |
 | 🧑‍💻 IDE | Visual Studio Code |
 | 🧱 Build | Apache Maven |
-| ✅ Framework de testes unitários | JUnit 5 (5.10.2), com cobertura medida pelo JaCoCo (0.8.11) |
+| ✅ Framework de testes unitários | JUnit 5 (5.10.2), com cobertura medida pelo JaCoCo (0.8.14) |
 | 🥒 BDD (se houver) | Cucumber 7.15.0, a partir da Sprint 2 |
 | 🤖 CI (se houver) | Não utilizado |
 | 🗄️ Banco/Dados (se houver) | Nenhum (repositórios em memória) |
@@ -54,7 +54,7 @@
  
 | Tipo de teste | 🎯 Objetivo | 📌 Escopo | 🛠️ Ferramenta | 👤 Responsável | 📎 Saída/Evidência |
 | --- | --- | --- | --- | --- | --- |
-| ✅ Unitário | Validar regras de domínio e serviços isoladamente | Pacotes `domain` e `service` (Beneficiario, Recebivel, Split e serviços) | JUnit 5 e JaCoCo | Sprint 1: João (beneficiário, #5) e Juan (recebível, #6) | [mvn-test-passo1.txt](evidencias/mvn-test-passo1.txt), [jacoco-teste-passo1.png](evidencias/jacoco-teste-passo1.png), [mvn-test-passo2.txt](evidencias/mvn-test-passo2.txt), [jacoco-test-passo2.png](evidencias/jacoco-test-passo2.png) <br>Sprint 2: [mvn-test-pr1.txt](evidencias/mvn-test-pr1.txt)<br>[jacoco-test-pr1.png](evidencias/jacoco-test-pr1.png) <br>[mvn-test-pr1.1.png](evidencias/mvn-test-pr1.1.png) |
+| ✅ Unitário | Validar regras de domínio e serviços isoladamente | Pacotes `domain` e `service` (Beneficiario, Recebivel, Split e serviços) | JUnit 5 e JaCoCo | Sprint 1: João (beneficiário, #5) e Juan (recebível, #6) | [mvn-test-passo1.txt](evidencias/mvn-test-passo1.txt), [jacoco-teste-passo1.png](evidencias/jacoco-teste-passo1.png), [mvn-test-passo2.txt](evidencias/mvn-test-passo2.txt), [jacoco-test-passo2.png](evidencias/jacoco-test-passo2.png) <br>Sprint 2: [mvn-test-pr1.txt](evidencias/mvn-test-pr1.txt)<br>[jacoco-test-pr1.png](evidencias/jacoco-test-pr1.png) <br>[mvn-test-pr1.1.png](evidencias/mvn-test-pr1.1.png)<br>[mvn-test-print-terminal-2.png](evidencias/mvn-test-print-terminal-2.png)<br>[mvn-test-pr2.txt](evidencias/mvn-test-pr2.txt) |
 | 🌐 Sistema/End-to-End | Validar os fluxos pela interface de console | Menu da CLI | Execução manual dos roteiros RT-01 a RT-13 | João (RT-01 a RT-04, RT-07 a RT-10) e Juan (RT-05 a RT-06) | [Roteiros de teste](roteiros-de-teste.md): cada ficha traz os prints em `evidencias/` |
 | 🥒 BDD | Validar fluxos essenciais em linguagem de negócio | Sprint 2: criar Split, beneficiário não aprovado, data inválida e valor acima do recebível. Sprint 3: saldo insuficiente e executar Split | Cucumber 7.15.0 (Gherkin em português) | Juan | [mvn-test-pr4-bdd.png](evidencias/mvn-test-pr4-bdd.png) e [cucumber-report-pr4.png](evidencias/cucumber-report-pr4.png) (até o PR 4 ser feito, deixe "A fazer") |
 | 🧑‍💻 Usabilidade | Avaliar clareza e facilidade de uso da CLI | Fluxos principais, com 3 participantes | Roteiro de tarefas | A definir na Sprint 3 | `usabilidade.md` (Sprint 3) |
@@ -63,13 +63,13 @@
  
 | ID Req | Requisito/Funcionalidade | ⭐ Prioridade | 🔗 Fonte (Issue/PR) | 🧪 IDs de testes (UT/BDD/RT) | 📌 Status |
 | --- | --- | --- | --- | --- | --- |
-| RF01 | Cadastrar beneficiários | 🔥 Alta | #28 (Sprint 0), #5 (PR #67) | UT-01 a UT-06, UT-10 a UT-12, RT-01, RT-03, RT-04 | 🟡 Planejado |
-| RF02 | Consultar beneficiários | ⚠️ Média | #33 (Sprint 0), #5 (PR #67) | UT-13, UT-14, RT-01, RT-02 | 🟡 Planejado |
-| RF03 | Aprovar beneficiários | 🔥 Alta | #31 e #5 (PR #67) | UT-07, UT-08, UT-15 a UT-19, RT-02 | 🟡 Planejado |
-| RF04 | Cadastrar recebíveis | 🔥 Alta | #37 e #6 (PR #68) | UT-20 a UT-27, UT-29 a UT-31, RT-05, RT-06 | 🟡 Planejado |
-| RF05 | Consultar recebíveis | ⚠️ Média | #39 e #6 (PR #68) | UT-28, UT-32, UT-33, RT-05 | 🟡 Planejado |
-| RF06 | Criar Split | 🔥 Alta | #41, #42, #43, #44, #7 (PR #__) | UT-34 a UT-54, RT-07 a RT-10 | 🟡 Planejado |
-| RF07 a RF14 | Listar, editar, excluir, executar, recusar, prioridade, histórico e relatório | 🔥 Alta | Próximos PRs | A preencher | 🟡 Planejado |
+| RF01 | Cadastrar beneficiários | 🔥 Alta | #28 (Sprint 0), #5 (PR #67) | UT-01 a UT-06, UT-10 a UT-12, RT-01, RT-03, RT-04 | 🟢 Passou |
+| RF02 | Consultar beneficiários | ⚠️ Média | #33 (Sprint 0), #5 (PR #67) | UT-13, UT-14, RT-01, RT-02 | 🟢 Passou |
+| RF03 | Aprovar beneficiários | 🔥 Alta | #31 e #5 (PR #67) | UT-07, UT-08, UT-15 a UT-19, RT-02 | 🟢 Passou |
+| RF04 | Cadastrar recebíveis | 🔥 Alta | #37 e #6 (PR #68) | UT-20 a UT-27, UT-29 a UT-31, RT-05, RT-06 | 🟢 Passou |
+| RF05 | Consultar recebíveis | ⚠️ Média | #39 e #6 (PR #68) | UT-28, UT-32, UT-33, RT-05 | 🟢 Passou |
+| RF06 | Criar Split | 🔥 Alta | #41, #42, #43, #44, #7 (PR #86) | UT-34 a UT-54, RT-07 a RT-10 | 🟢 Passou |
+| RF07 | Listar Splits | ⚠️ Média | #78 (PR #__) | UT-55 a UT-57, RT-11 | 🟢 Passou |
  
 > 🏷️ Convenção: ✅ **UT-XX** (teste unitário), 🥒 **BDD-XX** (cenário BDD), 📝 **RT-XX** (roteiro manual).
  
@@ -132,6 +132,9 @@ Sim |
 | UT-52 | ✅ Unitário | Soma de recebíveis da data | 2 recebíveis (600 + 400) | R$ 1.000 | Criado | Média | Sim |
 | UT-53 | ✅ Unitário | Criação inválida não consome ID | Aprovado | Inválido, depois válido | Próximo ID = 1 | Média | Sim |
 | UT-54 | ✅ Unitário | Buscar Split por ID | 1 Split | ID existente e 99 | Retorna / lança exceção | Média | Sim |
+| UT-55 | ✅ Unitário | Listar sem Splits | Serviço vazio | listarTodos() | Lista vazia | Média | Sim |
+| UT-56 | ✅ Unitário | Listar na ordem de criação | 2 Splits | listarTodos() | Ordem de criação | Alta | Sim |
+| UT-57 | ✅ Unitário | Listagem devolve cópia | 1 Split | Limpar a lista | Repositório mantém 1 item | Média | Sim |
 | RT-01 | 📝 Manual | Cadastrar e consultar beneficiário | Sistema recém-aberto | Maria Silva, PF | Cadastrado com status PENDENTE | Alta | Não |
 | RT-02 | 📝 Manual | Aprovar beneficiário | RT-01 executado | ID 1 | Status APROVADO | Alta | Não |
 | RT-03 | 📝 Manual | Nome vazio | Sistema recém-aberto | Nome vazio | Mensagem de nome obrigatório | Média | Não |
@@ -142,6 +145,7 @@ Sim |
 | RT-08 | 📝 Manual | Beneficiário pendente (RN01) | Maria aprovada e João pendente | ID 2 | Mensagem de RN01 | Alta | Não |
 | RT-09 | 📝 Manual | Data de hoje (RN02) | Recebível hoje | Data de hoje | Mensagem de RN02 | Alta | Não |
 | RT-10 | 📝 Manual | Valor e data sem recebível (RN03) | Recebível R$ 1.000 | R$ 1.500; data sem recebível | Mensagens de RN03 | Média | Não |
+| RT-11 | 📝 Manual | Listar Splits | Sistema recém-aberto | Opção 7 | Lista vazia e depois o Split criado | Média | Não |
  
 Detalhes dos roteiros em [roteiros-de-teste.md](roteiros-de-teste.md).
  
@@ -156,4 +160,4 @@ Detalhes dos roteiros em [roteiros-de-teste.md](roteiros-de-teste.md).
 | DT-05 | Split padrão | Maria Silva aprovada, recebível Venda cartão de R$ 1.000,00 em 30/12/2026 e Split de R$ 800,00 em 30/12/2026 | Opções 1, 3, 4 e 6 do menu | Em memória | Usado em RT-07, RT-11, RT-12 e RT-13 |
 | DT-06 | Beneficiário pendente | João Souza, PF, cadastrado e não aprovado (ID 2) | Opção 1 do menu, sem aprovar | Em memória | Usado em RT-08 |
 | DT-07 | Recebível e Split de hoje | Recebível de R$ 1.000,00 e Split de R$ 800,00, ambos com a data de hoje | Opções 4 e 6 do menu | Em memória | Usado em RT-09. Digite a data do dia da execução |
-| DT-08 | Valores limite do Split | Valor R$ 1.500,00 (acima do recebível) e data 31/12/2026 (sem recebível) | Opção 6 do menu | Em memória | Usado em RT-10 |
+| DT-08 | Valores limite do Split | Valor R$ 1.500,00 (acima do recebível) e data 31/12/2026 (sem recebível) | Opção 6 do menu | Em memória | Usado em RT-10 | 
