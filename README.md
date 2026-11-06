@@ -21,7 +21,7 @@ O sistema busca representar o processo de divisão de recebíveis antes da liqui
  
 ## Requisitos Técnicos e Tecnologias
  
-- **Linguagem:** Java 17
+- **Linguagem:** Java 25 (LTS)
 - **Gerenciamento de Build e Dependências:** Apache Maven
 - **Testes de Unidade:** JUnit 5
 - **Desenvolvimento Guiado por Comportamento (BDD):** Cucumber
