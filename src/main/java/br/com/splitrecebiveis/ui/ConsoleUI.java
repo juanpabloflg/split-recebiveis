@@ -2,10 +2,12 @@ package br.com.splitrecebiveis.ui;
  
 import br.com.splitrecebiveis.domain.Beneficiario;
 import br.com.splitrecebiveis.domain.Recebivel;
+import br.com.splitrecebiveis.domain.RegistroHistorico;
 import br.com.splitrecebiveis.domain.Split;
 import br.com.splitrecebiveis.domain.StatusSplit;
 import br.com.splitrecebiveis.domain.TipoPessoa;
 import br.com.splitrecebiveis.service.BeneficiarioService;
+import br.com.splitrecebiveis.service.HistoricoService;
 import br.com.splitrecebiveis.service.RecebivelService;
 import br.com.splitrecebiveis.service.SplitService;
  
@@ -29,14 +31,15 @@ public class ConsoleUI {
     private final BeneficiarioService beneficiarioService;
     private final RecebivelService recebivelService;
     private final SplitService splitService;
+    private final HistoricoService historicoService;
  
     public ConsoleUI(BeneficiarioService beneficiarioService, RecebivelService recebivelService,
-            SplitService splitService) {
+            SplitService splitService, HistoricoService historicoService) {
         this.beneficiarioService = beneficiarioService;
         this.recebivelService = recebivelService;
         this.splitService = splitService;
-    }
- 
+        this.historicoService = historicoService;
+    } 
  
     public void iniciar() {
         String opcao;
@@ -53,6 +56,7 @@ public class ConsoleUI {
             System.out.println("8 - Editar Split");
             System.out.println("9 - Excluir Split");
             System.out.println("10 - Executar Splits agendados");
+            System.out.println("11 - Consultar histórico de Splits");
             System.out.println("0 - Sair");
             System.out.print("Escolha uma opção: ");
  
@@ -69,6 +73,7 @@ public class ConsoleUI {
                 case "8" -> editarSplit();
                 case "9" -> excluirSplit();
                 case "10" -> executarSplits();
+                case "11" -> consultarHistorico();
                 case "0" -> System.out.println("Encerrando o sistema...");
                 default -> System.out.println("Opção inválida.");
             }
@@ -493,5 +498,24 @@ public class ConsoleUI {
     // Formata um valor em reais, por exemplo "R$ 1.500,50".
     private String formatarMoeda(BigDecimal valor) {
         return String.format(Locale.forLanguageTag("pt-BR"), "R$ %,.2f", valor);
+    }
+
+    // Exibe o histórico das operações feitas nos Splits, na ordem em que aconteceram.
+    private void consultarHistorico() {
+ 
+        List<RegistroHistorico> registros = historicoService.listarTodos();
+ 
+        System.out.println("\nHistórico de Splits");
+ 
+        if (registros.isEmpty()) {
+            System.out.println("Nenhuma operação registrada.");
+        } else {
+            for (RegistroHistorico registro : registros) {
+                System.out.println(registro);
+            }
+            System.out.println("\nTotal: " + registros.size() + " operação(ões) registrada(s).");
+        }
+ 
+        aguardarVoltar();
     }
 }
