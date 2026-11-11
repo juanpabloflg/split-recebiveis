@@ -9,6 +9,7 @@ import br.com.splitrecebiveis.infra.SplitRepositoryMemoria;
 import br.com.splitrecebiveis.service.BeneficiarioService;
 import br.com.splitrecebiveis.service.HistoricoService;
 import br.com.splitrecebiveis.service.RecebivelService;
+import br.com.splitrecebiveis.service.RelatorioService;
 import br.com.splitrecebiveis.service.SplitService;
 import br.com.splitrecebiveis.ui.ConsoleUI;
  
@@ -43,7 +44,11 @@ public class App {
         SplitService splitService =
                 new SplitService(splitRepository, beneficiarioService, recebivelService, clock, historicoService);
  
-        ConsoleUI consoleUI = new ConsoleUI(beneficiarioService, recebivelService, splitService, historicoService);
+        RelatorioService relatorioService =
+                new RelatorioService(beneficiarioService, recebivelService, splitService, historicoService);
+ 
+        ConsoleUI consoleUI = new ConsoleUI(beneficiarioService, recebivelService, splitService,
+                historicoService, relatorioService);
  
         consoleUI.iniciar();
     }
