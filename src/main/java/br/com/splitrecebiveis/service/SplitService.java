@@ -3,7 +3,9 @@ package br.com.splitrecebiveis.service;
 import java.math.BigDecimal;
 import java.time.Clock;
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 
 import br.com.splitrecebiveis.domain.Beneficiario;
 import br.com.splitrecebiveis.domain.Split;
@@ -111,5 +113,44 @@ public class SplitService {
         }
 
         repository.remover(split.getId());
+    }
+    
+    // Data de hoje segundo o relógio do serviço (o mesmo usado nas regras de antecedência).
+    public LocalDate hoje() {
+        return LocalDate.now(clock);
+    }
+
+    // Fila de prioridade: Splits pendentes da data, na ordem em que foram configurados.
+    public List<Split> filaDaData(LocalDate data) {
+        return repository.listarTodos().stream()
+                .filter(Split::isPendente)
+                .filter(split -> split.getDataRepasse().equals(data))
+                .sorted(Comparator.comparingLong(Split::getId))
+                .toList();
+    }
+
+    // Executa a fila da data, um Split de cada vez.
+    // Com saldo suficiente, o valor é debitado dos recebíveis e o Split fica Executado.
+    // Sem saldo, o Split fica Recusado e nenhum valor é repassado.
+    public List<Split> executarDaData(LocalDate data) {
+        List<Split> fila = filaDaData(data);
+
+        for (Split split : fila) {
+            BigDecimal saldo = recebivelService.saldoDisponivelPorData(data);
+
+            if (saldo.compareTo(split.getValor()) >= 0) {
+                recebivelService.debitarPorData(data, split.getValor());
+                split.marcarComoExecutado();
+            } else {
+                split.recusar("Saldo insuficiente: disponível " + formatarMoeda(saldo)
+                        + " para um Split de " + formatarMoeda(split.getValor()) + ".");
+            }
+        }
+
+        return fila;
+    }
+
+    private static String formatarMoeda(BigDecimal valor) {
+        return String.format(Locale.forLanguageTag("pt-BR"), "R$ %,.2f", valor);
     }
 }

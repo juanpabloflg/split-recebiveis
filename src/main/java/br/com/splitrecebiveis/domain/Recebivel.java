@@ -81,6 +81,19 @@ public class Recebivel {
         return String.format(Locale.forLanguageTag("pt-BR"), "R$ %,.2f", valor);
     }
 
+    // Reduz o valor disponível do recebível, usado quando um Split é executado.
+    public void debitar(BigDecimal valor) {
+        if (valor == null || valor.signum() <= 0) {
+            throw new IllegalArgumentException("O valor a debitar deve ser maior que zero.");
+        }
+
+        if (valor.compareTo(valorDisponivel) > 0) {
+            throw new IllegalArgumentException("O valor a debitar é maior que o valor disponível do recebível.");
+        }
+
+        this.valorDisponivel = valorDisponivel.subtract(valor);
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

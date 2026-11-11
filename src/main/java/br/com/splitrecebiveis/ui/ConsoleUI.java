@@ -3,6 +3,7 @@ package br.com.splitrecebiveis.ui;
 import br.com.splitrecebiveis.domain.Beneficiario;
 import br.com.splitrecebiveis.domain.Recebivel;
 import br.com.splitrecebiveis.domain.Split;
+import br.com.splitrecebiveis.domain.StatusSplit;
 import br.com.splitrecebiveis.domain.TipoPessoa;
 import br.com.splitrecebiveis.service.BeneficiarioService;
 import br.com.splitrecebiveis.service.RecebivelService;
@@ -14,6 +15,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
 import java.util.List;
+import java.util.Locale;
 import java.util.Scanner;
  
 public class ConsoleUI {
@@ -50,6 +52,7 @@ public class ConsoleUI {
             System.out.println("7 - Listar Splits");
             System.out.println("8 - Editar Split");
             System.out.println("9 - Excluir Split");
+            System.out.println("10 - Executar Splits agendados");
             System.out.println("0 - Sair");
             System.out.print("Escolha uma opção: ");
  
@@ -65,6 +68,7 @@ public class ConsoleUI {
                 case "7" -> listarSplits();
                 case "8" -> editarSplit();
                 case "9" -> excluirSplit();
+                case "10" -> executarSplits();
                 case "0" -> System.out.println("Encerrando o sistema...");
                 default -> System.out.println("Opção inválida.");
             }
@@ -114,7 +118,6 @@ public class ConsoleUI {
             Beneficiario beneficiario = beneficiarioService.cadastrar(nome, tipoPessoa, documento, banco, agencia, conta);
  
             System.out.println("\nBeneficiário cadastrado com sucesso!");
-            System.out.println(beneficiario);
  
         } catch (IllegalArgumentException e) {
             System.out.println(
@@ -129,11 +132,10 @@ public class ConsoleUI {
         // Solicita ao serviço a lista de beneficiários.
         List<Beneficiario> beneficiarios = beneficiarioService.listarTodos();
  
-        System.out.println("\nBeneficiários Cadastrados");
- 
         if (beneficiarios.isEmpty()) {
             System.out.println("Nenhum beneficiário cadastrado.");
         } else {
+            System.out.println("\nBeneficiários Cadastrados");
             for (Beneficiario beneficiario : beneficiarios) {
                 System.out.println(beneficiario);
             }
@@ -222,11 +224,10 @@ public class ConsoleUI {
  
         List<Recebivel> recebiveis = recebivelService.listarTodos();
  
-        System.out.println("\nRecebíveis Cadastrados");
- 
         if (recebiveis.isEmpty()) {
             System.out.println("Nenhum recebível cadastrado.");
         } else {
+            System.out.println("\nRecebíveis Cadastrados");
             for (Recebivel recebivel : recebiveis) {
                 System.out.println(recebivel);
             }
@@ -307,11 +308,10 @@ public class ConsoleUI {
  
         List<Split> splits = splitService.listarTodos();
  
-        System.out.println("\nSplits Cadastrados");
- 
         if (splits.isEmpty()) {
             System.out.println("Nenhum Split cadastrado.");
         } else {
+            System.out.println("\nSplits Cadastrados");
             for (Split split : splits) {
                 System.out.println(split);
             }
@@ -425,5 +425,73 @@ public class ConsoleUI {
         } catch (IllegalArgumentException | IllegalStateException e) {
             System.out.println("Não foi possível excluir o Split: " + e.getMessage());
         }
+    }
+    
+    // Mostra a fila de prioridade de uma data e executa os Splits pendentes dela.
+    private void executarSplits() {
+
+        System.out.println("\nExecução de Splits");
+
+        try {
+            System.out.print("Data da execução, dd/MM/aaaa (Enter para hoje): ");
+            String entrada = sc.nextLine().trim();
+            LocalDate data = entrada.isEmpty() ? splitService.hoje() : LocalDate.parse(entrada, FORMATO_DATA);
+
+            List<Split> fila = splitService.filaDaData(data);
+
+            if (fila.isEmpty()) {
+                System.out.println("Nenhum Split pendente para " + data.format(FORMATO_DATA) + ".");
+                aguardarVoltar();
+                return;
+            }
+
+            System.out.println("\nFila de execução em " + data.format(FORMATO_DATA) + " (ordem de configuração):");
+
+            int posicao = 1;
+            for (Split split : fila) {
+                System.out.println(posicao + "º - Split " + split.getId() + " | "
+                        + split.getBeneficiario().getNome() + " | " + formatarMoeda(split.getValor()));
+                posicao++;
+            }
+
+            System.out.println("Saldo disponível nos recebíveis da data: "
+                    + formatarMoeda(recebivelService.saldoDisponivelPorData(data)));
+
+            System.out.print("\nConfirma a execução? (S/N): ");
+            String confirmacao = sc.nextLine().trim().toUpperCase();
+
+            if (!confirmacao.equals("S")) {
+                System.out.println("Execução cancelada.");
+                return;
+            }
+
+            List<Split> resultado = splitService.executarDaData(data);
+
+            System.out.println("\nResultado da execução:\n");
+
+            long executados = 0;
+            for (Split split : resultado) {
+                System.out.println(split);
+                if (split.getStatus() == StatusSplit.EXECUTADO) {
+                    executados++;
+                }
+            }
+
+            System.out.println(executados + " Split(s) executado(s) e "
+                    + (resultado.size() - executados) + " recusado(s).");
+
+            aguardarVoltar();
+
+        } catch (DateTimeParseException e) {
+            System.out.println("Data inválida. Use o formato dd/MM/aaaa, por exemplo: 25/12/2026.");
+
+        } catch (IllegalArgumentException | IllegalStateException e) {
+            System.out.println("Não foi possível executar os Splits: " + e.getMessage());
+        }
+    }
+
+    // Formata um valor em reais, por exemplo "R$ 1.500,50".
+    private String formatarMoeda(BigDecimal valor) {
+        return String.format(Locale.forLanguageTag("pt-BR"), "R$ %,.2f", valor);
     }
 }

@@ -42,4 +42,40 @@ public class RecebivelService {
                 .map(Recebivel::getValorTotal)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
+    
+    // Soma o valor disponível dos recebíveis com liquidação na data informada.
+    // Retorna zero quando não há recebíveis nessa data.
+    public BigDecimal saldoDisponivelPorData(LocalDate data) {
+        return repository.listarTodos().stream()
+                .filter(recebivel -> recebivel.getDataLiquidacao().equals(data))
+                .map(Recebivel::getValorDisponivel)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
+    // Debita o valor dos recebíveis da data, na ordem em que foram cadastrados.
+    // Um valor maior que o saldo da data é rejeitado e nada é debitado.
+    public void debitarPorData(LocalDate data, BigDecimal valor) {
+        if (saldoDisponivelPorData(data).compareTo(valor) < 0) {
+            throw new IllegalArgumentException("Saldo insuficiente nos recebíveis da data.");
+        }
+
+        BigDecimal restante = valor;
+
+        for (Recebivel recebivel : repository.listarTodos()) {
+            if (restante.signum() == 0) {
+                break;
+            }
+
+            if (!recebivel.getDataLiquidacao().equals(data)) {
+                continue;
+            }
+
+            BigDecimal debito = recebivel.getValorDisponivel().min(restante);
+
+            if (debito.signum() > 0) {
+                recebivel.debitar(debito);
+                restante = restante.subtract(debito);
+            }
+        }
+    }
 }
