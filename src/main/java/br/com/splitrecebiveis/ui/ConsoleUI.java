@@ -3,12 +3,14 @@ package br.com.splitrecebiveis.ui;
 import br.com.splitrecebiveis.domain.Beneficiario;
 import br.com.splitrecebiveis.domain.Recebivel;
 import br.com.splitrecebiveis.domain.RegistroHistorico;
+import br.com.splitrecebiveis.domain.RelatorioResumo;
 import br.com.splitrecebiveis.domain.Split;
 import br.com.splitrecebiveis.domain.StatusSplit;
 import br.com.splitrecebiveis.domain.TipoPessoa;
 import br.com.splitrecebiveis.service.BeneficiarioService;
 import br.com.splitrecebiveis.service.HistoricoService;
 import br.com.splitrecebiveis.service.RecebivelService;
+import br.com.splitrecebiveis.service.RelatorioService;
 import br.com.splitrecebiveis.service.SplitService;
  
 import java.math.BigDecimal;
@@ -19,7 +21,7 @@ import java.time.format.ResolverStyle;
 import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
- 
+
 public class ConsoleUI {
  
     // STRICT rejeita datas que não existem, como 31/02/2026. Em STRICT o ano deve ser "uuuu".
@@ -32,14 +34,16 @@ public class ConsoleUI {
     private final RecebivelService recebivelService;
     private final SplitService splitService;
     private final HistoricoService historicoService;
- 
+    private final RelatorioService relatorioService;
+
     public ConsoleUI(BeneficiarioService beneficiarioService, RecebivelService recebivelService,
-            SplitService splitService, HistoricoService historicoService) {
+            SplitService splitService, HistoricoService historicoService, RelatorioService relatorioService) {
         this.beneficiarioService = beneficiarioService;
         this.recebivelService = recebivelService;
         this.splitService = splitService;
         this.historicoService = historicoService;
-    } 
+        this.relatorioService = relatorioService;
+    }
  
     public void iniciar() {
         String opcao;
@@ -57,6 +61,7 @@ public class ConsoleUI {
             System.out.println("9 - Excluir Split");
             System.out.println("10 - Executar Splits agendados");
             System.out.println("11 - Consultar histórico de Splits");
+            System.out.println("12 - Gerar relatório resumido");
             System.out.println("0 - Sair");
             System.out.print("Escolha uma opção: ");
  
@@ -74,6 +79,7 @@ public class ConsoleUI {
                 case "9" -> excluirSplit();
                 case "10" -> executarSplits();
                 case "11" -> consultarHistorico();
+                case "12" -> gerarRelatorio();
                 case "0" -> System.out.println("Encerrando o sistema...");
                 default -> System.out.println("Opção inválida.");
             }
@@ -516,6 +522,17 @@ public class ConsoleUI {
             System.out.println("\nTotal: " + registros.size() + " operação(ões) registrada(s).");
         }
  
+        aguardarVoltar();
+    }
+    
+    // Exibe o relatório resumido das operações do sistema.
+    private void gerarRelatorio() {
+
+        RelatorioResumo resumo = relatorioService.gerarResumo();
+
+        System.out.println("\nRelatório Resumido\n");
+        System.out.println(resumo);
+
         aguardarVoltar();
     }
 }
