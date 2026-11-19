@@ -99,10 +99,10 @@ split-recebiveis/
 - [Regras de negócio](docs/requisitos/regras-de-negocio.md)
  
 **Testes**
-- [Plano de teste](docs/testes/plano-de-teste.md)
+- [Plano de teste](docs/testes/planos-de-teste.md)
 - [Roteiros de teste](docs/testes/roteiros-de-teste.md)
 - [Evidências dos testes](docs/testes/evidencias/)
- 
+
 **HUB**
 - [Ânima HUB](docs/hub/)
  
