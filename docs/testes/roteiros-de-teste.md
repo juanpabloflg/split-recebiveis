@@ -10,7 +10,7 @@
 | 📎 Evidência | Print, log, vídeo ou link do PR/Issue (arquivos em `evidencias/`) |
  
 > Cada roteiro é executado com o sistema recém-aberto, pois os dados ficam apenas em memória.
-> RT-01 a RT-04 foram executados por João (PR #67). RT-05 e RT-06 por Juan (PR #68). RT-07 a RT-10 por João (PR #86). RT-11 por Rafael (PR #87). RT-12 e RT-13 por Juan (PR #).
+> RT-01 a RT-04 foram executados por João (PR #67). RT-05 e RT-06 por Juan (PR #68). RT-07 a RT-10 por João (PR #86). RT-11 por Rafael (PR #87). RT-12 e RT-13 por Juan (PR 88#). RT-13 a RT17 por Juan (PR #).
  
 ## Resumo
  
@@ -29,6 +29,10 @@
 | RT-11 | Listar Splits | ⚠️ Média | 🟢 Passou |
 | RT-12 | Editar Split | 🔥 Alta | 🟢 Passou |
 | RT-13 | Excluir Split | 🔥 Alta | 🟢 Passou |
+| RT-14 | Executar Splits com saldo suficiente | 🔥 Alta | 🟡 Planejado |
+| RT-15 | Recusar Split por saldo insuficiente (RN04) | 🔥 Alta | 🟡 Planejado |
+| RT-16 | Consultar histórico de Splits | 🔥 Alta | 🟡 Planejado |
+| RT-17 | Gerar relatório resumido | 🔥 Alta | 🟡 Planejado |
  
 ## Cobertura mínima exigida pelo enunciado
  
@@ -260,3 +264,79 @@
 | 👤 Executado por / data | Juan, 06/11/2026 |
 | 📌 Status | 🟢 Passou |
 | 📎 Evidência | [RT-13.1.png](evidencias/RT-13.1.png)<br>[RT-13.2.png](evidencias/RT-13.2.png) |
+
+---
+
+## RT-14 — Executar Splits com saldo suficiente
+
+| Campo | Detalhe |
+| --- | --- |
+| 🏷️ ID | RT-14 |
+| ⭐ Prioridade | 🔥 Alta |
+| 🧩 Funcionalidade | Executar Splits agendados (RF10, RN07) |
+| 🎯 Objetivo | Verificar a execução de todos os Splits quando há saldo suficiente |
+| 🔐 Pré-condição | Sistema recém-aberto |
+| 🧪 Dados de teste | Maria Silva aprovada; recebível R$ 1.000,00 em 30/12/2027; Splits de R$ 400,00 e R$ 300,00 em 30/12/2027 |
+| 🪜 Passos | 1) Cadastrar e aprovar Maria Silva (opções 1 e 3)<br>2) Cadastrar o recebível de R$ 1.000,00 em 30/12/2027 (opção 4)<br>3) Criar Split de R$ 400,00 em 30/12/2027 (opção 6)<br>4) Criar Split de R$ 300,00 em 30/12/2027 (opção 6)<br>5) Digitar `10`, informar `30/12/2027`<br>6) Verificar fila exibida e saldo disponível<br>7) Responder `S` para confirmar |
+| ✅ Resultado esperado | Fila exibe 1º R$ 400,00 e 2º R$ 300,00 com saldo R$ 1.000,00. Ambos com status EXECUTADO. Mensagem "2 Split(s) executado(s) e 0 recusado(s)." Opção 5 mostra saldo disponível R$ 300,00. |
+| 🧾 Resultado obtido | Conforme o esperado, anexado em evidência |
+| 👤 Executado por / data | Juan, 25/11/2026 |
+| 📌 Status | 🟢 Passou |
+| 📎 Evidência | [RT-14.1.png](evidencias/RT-14.1.png)<br>[RT-14.2.png](evidencias/RT-14.2.png) |
+
+---
+
+## RT-15 — Recusar Split por saldo insuficiente (RN04)
+
+| Campo | Detalhe |
+| --- | --- |
+| 🏷️ ID | RT-15 |
+| ⭐ Prioridade | 🔥 Alta |
+| 🧩 Funcionalidade | Executar Splits agendados com recusa por saldo (RF10, RN04) |
+| 🎯 Objetivo | Verificar que um Split é recusado com motivo quando o saldo é insuficiente, sem debitar nada |
+| 🔐 Pré-condição | Sistema recém-aberto |
+| 🧪 Dados de teste | Maria Silva aprovada; recebível R$ 1.000,00 em 30/12/2027; Splits de R$ 400,00, R$ 300,00 e R$ 800,00 em 30/12/2027 |
+| 🪜 Passos | 1) Realizar os passos 1 a 4 do RT-14<br>2) Criar Split de R$ 800,00 em 30/12/2027 (opção 6)<br>3) Digitar `10`, data `30/12/2027` e confirmar `S` |
+| ✅ Resultado esperado | Split R$ 400,00: EXECUTADO. Split R$ 300,00: EXECUTADO. Split R$ 800,00: RECUSADO com motivo "Saldo insuficiente: disponível R$ 300,00 para um Split de R$ 800,00." Mensagem "2 Split(s) executado(s) e 1 recusado(s)." Saldo disponível: R$ 300,00 (inalterado pelo recusado). |
+| 🧾 Resultado obtido | Conforme o esperado, anexado em evidência |
+| 👤 Executado por / data | Juan, 25/11/2026 |
+| 📌 Status | 🟢 Passou |
+| 📎 Evidência | [RT-15.png](evidencias/RT-15.png) |
+
+---
+
+## RT-16 — Consultar histórico de Splits
+
+| Campo | Detalhe |
+| --- | --- |
+| 🏷️ ID | RT-16 |
+| ⭐ Prioridade | 🔥 Alta |
+| 🧩 Funcionalidade | Consultar histórico de Splits (RF11) |
+| 🎯 Objetivo | Verificar que o histórico registra criação, execução e recusa na ordem cronológica |
+| 🔐 Pré-condição | RT-15 executado na mesma sessão |
+| 🧪 Dados de teste | Estado resultante do RT-15 |
+| 🪜 Passos | 1) Digitar `11` no menu |
+| ✅ Resultado esperado | 3 linhas CRIADO (uma por Split), 2 linhas EXECUTADO (Splits R$ 400 e R$ 300) e 1 linha RECUSADO (Split R$ 800, com o motivo). Total: "6 operação(ões) registrada(s)." Registros em ordem cronológica. |
+| 🧾 Resultado obtido | Conforme o esperado, anexado em evidência |
+| 👤 Executado por / data | Juan, 25/11/2026 |
+| 📌 Status | 🟢 Passou |
+| 📎 Evidência | [RT-16.png](evidencias/RT-16.png) |
+
+---
+
+## RT-17 — Gerar relatório resumido
+
+| Campo | Detalhe |
+| --- | --- |
+| 🏷️ ID | RT-17 |
+| ⭐ Prioridade | 🔥 Alta |
+| 🧩 Funcionalidade | Gerar relatório resumido (RF12) |
+| 🎯 Objetivo | Verificar que o relatório exibe os totais e valores por status corretamente |
+| 🔐 Pré-condição | RT-15 executado na mesma sessão |
+| 🧪 Dados de teste | Estado resultante do RT-15 |
+| 🪜 Passos | 1) Digitar `12` no menu |
+| ✅ Resultado esperado | Beneficiários: Total 1, Aprovados 1, Pendentes 0. Recebíveis: Quantidade 1, Valor total R$ 1.000,00, Saldo disponível R$ 300,00. Splits: Total 3, Pendentes 0 (R$ 0,00), Executados 2 (R$ 700,00), Recusados 1 (R$ 800,00). Histórico: 6 operações registradas. |
+| 🧾 Resultado obtido | Conforme o esperado, anexado em evidência |
+| 👤 Executado por / data | Juan, 25/11/2026 |
+| 📌 Status | 🟢 Passou |
+| 📎 Evidência | [RT-17.png](evidencias/RT-17.png) |
