@@ -95,7 +95,7 @@ public class ConsoleUI {
             System.out.print("Nome: ");
             String nome = sc.nextLine();
  
-            System.out.print("Tipo de pessoa (PF/PJ): ");
+            System.out.print("Tipo de pessoa (PF para pessoa física ou PJ para pessoa jurídica): ");
  
             TipoPessoa tipoPessoa;
  
@@ -113,17 +113,17 @@ public class ConsoleUI {
             }
  
             // Exibe "CPF:" se o tipo de pessoa for PF, caso contrário, exibe "CNPJ:".
-            System.out.print(tipoPessoa == TipoPessoa.PF ? "CPF: " : "CNPJ: ");
+            System.out.print(tipoPessoa == TipoPessoa.PF ? "CPF (somente números, ex.: 12345678901): " : "CNPJ (somente números, ex.: 12345678000199): ");
             String documento = sc.nextLine();
  
     
-            System.out.print("Banco: ");
+            System.out.print("Banco (código, ex.: 001): ");
             String banco = sc.nextLine();
  
-            System.out.print("Agência: ");
+            System.out.print("Agência (ex.: 1234): ");
             String agencia = sc.nextLine();
  
-            System.out.print("Conta: ");
+            System.out.print("Conta com dígito (ex.: 56789-0): ");
             String conta = sc.nextLine();
  
             Beneficiario beneficiario = beneficiarioService.cadastrar(nome, tipoPessoa, documento, banco, agencia, conta);
@@ -204,13 +204,13 @@ public class ConsoleUI {
         try {
             System.out.println("\nCadastro de Recebível");
  
-            System.out.print("Descrição: ");
+            System.out.print("Descrição do recebível (ex.: Venda cartão 15/10): ");
             String descricao = sc.nextLine();
  
             System.out.print("Valor em R$ (ex.: 1500,50): ");
             BigDecimal valor = lerValor(sc.nextLine());
  
-            System.out.print("Data de liquidação (dd/MM/aaaa): ");
+            System.out.print("Data de liquidação, dia em que o valor será liquidado (dd/MM/aaaa, ex.: 30/12/2026): ");
             LocalDate dataLiquidacao = LocalDate.parse(sc.nextLine().trim(), FORMATO_DATA);
  
             Recebivel recebivel = recebivelService.cadastrar(descricao, valor, dataLiquidacao);
@@ -266,13 +266,18 @@ public class ConsoleUI {
         }
  
         try {
-            System.out.print("ID do beneficiário: ");
+
+            System.out.println("\nA data do repasse deve ser posterior a hoje ("+ splitService.hoje().format(FORMATO_DATA) + ") e precisa ter recebíveis cadastrados.");
+            mostrarDatasComRecebiveis();
+            System.out.println();
+
+            System.out.print("ID do beneficiário aprovado (veja a lista acima): ");
             long beneficiarioId = Long.parseLong(sc.nextLine().trim());
  
             System.out.print("Valor do Split em R$ (ex.: 800,00): ");
             BigDecimal valor = lerValor(sc.nextLine());
  
-            System.out.print("Data do repasse (dd/MM/aaaa): ");
+            System.out.print("Data do repasse (dd/MM/aaaa, ex.: 30/12/2026): ");
             LocalDate dataRepasse = LocalDate.parse(sc.nextLine().trim(), FORMATO_DATA);
  
             Split split = splitService.criar(beneficiarioId, valor, dataRepasse);
@@ -444,6 +449,11 @@ public class ConsoleUI {
         System.out.println("\nExecução de Splits");
 
         try {
+
+            System.out.println("Informe a data dos Splits que deseja executar. Enter usa a data de hoje ("+ splitService.hoje().format(FORMATO_DATA) + ").");
+            mostrarDatasComSplitsPendentes();
+            System.out.println();
+
             System.out.print("Data da execução, dd/MM/aaaa (Enter para hoje): ");
             String entrada = sc.nextLine().trim();
             LocalDate data = entrada.isEmpty() ? splitService.hoje() : LocalDate.parse(entrada, FORMATO_DATA);
@@ -534,5 +544,43 @@ public class ConsoleUI {
         System.out.println(resumo);
 
         aguardarVoltar();
+    }
+    
+    // Mostra as datas que já têm recebíveis cadastrados, para orientar a data do Split.
+    private void mostrarDatasComRecebiveis() {
+        List<Recebivel> recebiveis = recebivelService.listarTodos();
+
+        if (recebiveis.isEmpty()) {
+            System.out.println("Ainda não há recebíveis cadastrados. Cadastre um recebível antes de criar o Split.");
+            return;
+        }
+
+        System.out.println("Datas com recebíveis cadastrados:");
+        recebiveis.stream()
+                .map(Recebivel::getDataLiquidacao)
+                .distinct()
+                .sorted()
+                .forEach(data -> System.out.println("  - " + data.format(FORMATO_DATA)
+                        + " (total de " + formatarMoeda(recebivelService.totalPorData(data)) + ")"));
+    }
+
+    // Mostra as datas que têm Splits pendentes, para orientar a data da execução.
+    private void mostrarDatasComSplitsPendentes() {
+        List<Split> pendentes = splitService.listarTodos().stream()
+                .filter(Split::isPendente)
+                .toList();
+
+        if (pendentes.isEmpty()) {
+            System.out.println("Não há Splits pendentes para executar.");
+            return;
+        }
+
+        System.out.println("Datas com Splits pendentes:");
+        pendentes.stream()
+                .map(Split::getDataRepasse)
+                .distinct()
+                .sorted()
+                .forEach(data -> System.out.println("  - " + data.format(FORMATO_DATA) + " ("
+                        + splitService.filaDaData(data).size() + " Split(s))"));
     }
 }
