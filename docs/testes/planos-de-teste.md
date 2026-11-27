@@ -63,16 +63,16 @@
  
 | ID Req | Requisito/Funcionalidade | ⭐ Prioridade | 🔗 Fonte (Issue/PR) | 🧪 IDs de testes (UT/BDD/RT) | 📌 Status |
 | --- | --- | --- | --- | --- | --- |
-| RF01 | Cadastrar beneficiários | 🔥 Alta | #28 (Sprint 0), #5 (PR #67) | UT-01 a UT-06, UT-10 a UT-12, RT-01, RT-03, RT-04 | 🟢 Passou |
-| RF02 | Consultar beneficiários | ⚠️ Média | #33 (Sprint 0), #5 (PR #67) | UT-13, UT-14, RT-01, RT-02 | 🟢 Passou |
-| RF03 | Aprovar beneficiários | 🔥 Alta | #31 e #5 (PR #67) | UT-07, UT-08, UT-15 a UT-19, RT-02 | 🟢 Passou |
-| RF04 | Cadastrar recebíveis | 🔥 Alta | #37 e #6 (PR #68) | UT-20 a UT-27, UT-29 a UT-31, RT-05, RT-06 | 🟢 Passou |
-| RF05 | Consultar recebíveis | ⚠️ Média | #39 e #6 (PR #68) | UT-28, UT-32, UT-33, RT-05 | 🟢 Passou |
-| RF06 | Criar Split | 🔥 Alta | #41, #42, #43, #44, #7 (PR #86) | UT-34 a UT-54, RT-07 a RT-10 | 🟢 Passou |
-| RF07 | Listar Splits | ⚠️ Média | #78 (PR #87) | UT-55 a UT-57, RT-11 | 🟢 Passou |
-| RF08 | Editar Split pendente | 🔥 Alta | #45, #7 (PR #88) | UT-58 a UT-60, UT-63 a UT-67, RT-12 | 🟢 Passou |
-| RF09 | Excluir Split pendente | 🔥 Alta | #46, #7 (PR #88) | UT-68 a UT-70, RT-13 | 🟢 Passou |
-| RF10 a RF14 | Executar, recusar, prioridade, histórico e relatório | 🔥 Alta | #8, #11 e #36 | BDD-04, BDD-05, UT-71 a UT-96 | 🟢 Passou |
+| RF01 | Cadastrar beneficiários | 🔥 Alta | #28 (Sprint 0), #5 (PR `#67`) | UT-01 a UT-06, UT-10 a UT-12, RT-01, RT-03, RT-04 | 🟢 Passou |
+| RF02 | Consultar beneficiários | ⚠️ Média | #33 (Sprint 0), #5 (PR `#67`) | UT-13, UT-14, RT-01, RT-02 | 🟢 Passou |
+| RF03 | Aprovar beneficiários | 🔥 Alta | #31 e #5 (PR `#67`) | UT-07, UT-08, UT-15 a UT-19, RT-02 | 🟢 Passou |
+| RF04 | Cadastrar recebíveis | 🔥 Alta | #37 e #6 (PR `#68`) | UT-20 a UT-27, UT-29 a UT-31, RT-05, RT-06 | 🟢 Passou |
+| RF05 | Consultar recebíveis | ⚠️ Média | #39 e #6 (PR `#68`) | UT-28, UT-32, UT-33, RT-05 | 🟢 Passou |
+| RF06 | Criar Split | 🔥 Alta | #41, #42, #43, #44, #7 (PR `#86`) | UT-34 a UT-54, RT-07 a RT-10 | 🟢 Passou |
+| RF07 | Listar Splits | ⚠️ Média | #78 (PR `#87`) | UT-55 a UT-57, RT-11 | 🟢 Passou |
+| RF08 | Editar Split pendente | 🔥 Alta | #45, #7 (PR `#88`) | UT-58 a UT-60, UT-63 a UT-67, RT-12 | 🟢 Passou |
+| RF09 | Excluir Split pendente | 🔥 Alta | #46, #7 (PR `#88`) | UT-68 a UT-70, RT-13 | 🟢 Passou |
+| RF10 a RF14 | Executar, recusar, prioridade, histórico e relatório | 🔥 Alta | #8, #11 e #36 (PR `#102`) | BDD-04, BDD-05, UT-71 a UT-96 | 🟢 Passou |
  
 > 🏷️ Convenção: ✅ **UT-XX** (teste unitário), 🥒 **BDD-XX** (cenário BDD), 📝 **RT-XX** (roteiro manual).
  

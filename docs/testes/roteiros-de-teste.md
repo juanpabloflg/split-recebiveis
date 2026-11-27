@@ -10,7 +10,7 @@
 | 📎 Evidência | Print, log, vídeo ou link do PR/Issue (arquivos em `evidencias/`) |
  
 > Cada roteiro é executado com o sistema recém-aberto, pois os dados ficam apenas em memória.
-> RT-01 a RT-04 foram executados por João (PR #67). RT-05 e RT-06 por Juan (PR #68). RT-07 a RT-10 por João (PR #86). RT-11 por Rafael (PR #87). RT-12 e RT-13 por Juan (PR 88#). RT-13 a RT17 por Juan (PR #).
+> RT-01 a RT-04 foram executados por João (PR `#67`). RT-05 e RT-06 por Juan (PR `#68`). RT-07 a RT-10 por João (PR `#86`). RT-11 por Rafael (PR `#87`). RT-12 e RT-13 por Juan (PR `#88`). RT-13 a RT17 por Juan (PR `#102`).
  
 ## Resumo
  
@@ -29,17 +29,17 @@
 | RT-11 | Listar Splits | ⚠️ Média | 🟢 Passou |
 | RT-12 | Editar Split | 🔥 Alta | 🟢 Passou |
 | RT-13 | Excluir Split | 🔥 Alta | 🟢 Passou |
-| RT-14 | Executar Splits com saldo suficiente | 🔥 Alta | 🟡 Planejado |
-| RT-15 | Recusar Split por saldo insuficiente (RN04) | 🔥 Alta | 🟡 Planejado |
-| RT-16 | Consultar histórico de Splits | 🔥 Alta | 🟡 Planejado |
-| RT-17 | Gerar relatório resumido | 🔥 Alta | 🟡 Planejado |
+| RT-14 | Executar Splits com saldo suficiente | 🔥 Alta | 🟢 Passou |
+| RT-15 | Recusar Split por saldo insuficiente (RN04) | 🔥 Alta | 🟢 Passou |
+| RT-16 | Consultar histórico de Splits | 🔥 Alta | 🟢 Passou |
+| RT-17 | Gerar relatório resumido | 🔥 Alta | 🟢 Passou |
  
 ## Cobertura mínima exigida pelo enunciado
- 
-| Categoria | Mínimo | Roteiros (acumulado até a Sprint 2) |
+
+| Categoria | Mínimo | Roteiros |
 | --- | --- | --- |
-| Fluxos principais | 2 | RT-01, RT-02, RT-05, RT-07, RT-11, RT-12, RT-13 |
-| Validações e erros | 2 | RT-03, RT-04, RT-08, RT-10 |
+| Fluxos principais | 2 | RT-01, RT-02, RT-05, RT-07, RT-11, RT-12, RT-13, RT-14, RT-16, RT-17 |
+| Validações e erros | 2 | RT-03, RT-04, RT-08, RT-10, RT-15 |
 | Bordas (limites e entradas inválidas) | 1 | RT-06, RT-09 |
 
 ---
